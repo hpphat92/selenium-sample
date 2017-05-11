@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Online Store Test">
+	<test name="OnlineStore">
+		<classes>
+			 <class name="automationFramework.FirstTestCase"><methods><include name="Test1"></include></methods></class>
+		</classes>
+	</test>
+</suite>

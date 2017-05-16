@@ -1,19 +1,17 @@
-package suites;
+package pack.suites;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import services.Locator;
-import services.Time;
-
+import pack.pageObject.LoginPage;
+import pack.services.Time;
 public class Authorization {
 
     private WebDriver driver;
+    private LoginPage loginPage;
 
     public static void main(String[] args) {
 
@@ -23,6 +21,8 @@ public class Authorization {
     @BeforeClass
     public void setUp(String appURL) {
         driver = new FirefoxDriver();
+        this.loginPage = new LoginPage(driver);
+
     }
 
 
@@ -37,16 +37,26 @@ public class Authorization {
 
 
     @Test(priority = 2)
-    public void Login() throws Exception {
-//        driver.findElement(By.id("element id"))
-        Assert.assertFalse(Locator.findById(driver, "btnLogin").isEnabled());
-        Locator.findById(driver, "email").sendKeys("vu@test.com");
-        Locator.findById(driver, "password").sendKeys("Abc123123");
-        Assert.assertTrue(Locator.findById(driver, "btnLogin").isEnabled());
-        Locator.findById(driver, "btnLogin").click();
+    public void LoginWithFailedCredential() throws Exception {
+//
+        this.loginPage.tryLogin("ABC","XYZ");
 
-        Time.waitUntilDataLoaded(driver);
-        Thread.sleep(5000);
+        Time.waitForLoad(driver);
+
+
+        this.loginPage.tryLogin("vu@test.com","Abc123123");
+
+        Time.waitForLoad(driver);
+
+
+
+    }
+    @Test(priority = 3)
+    public void LoginWithPassedCredential() throws Exception {
+        this.loginPage.tryLogin("vu@test.com","Abc123123");
+
+        Time.waitForLoad(driver);
+
     }
 
     @AfterClass

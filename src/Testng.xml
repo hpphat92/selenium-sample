@@ -4,7 +4,7 @@
 	<parameter name="appURL" value="https://imagesearch-dev.azurewebsites.net/" />
 	<test name="OnlineStore">
 		<classes>
-			 <class name="suites.Authorization"></class>
+			 <class name="pack.suites.Authorization"></class>
 		</classes>
 	</test>
 </suite>
